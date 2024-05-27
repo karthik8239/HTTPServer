@@ -28,7 +28,7 @@ public class Main {
       if(HttpRequest[1].equals("/")){
           output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
       } else {
-        output.write("HTTP/1.1 400 Not Found\r\n\r\n".getBytes());
+        output.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes());
       }
       System.out.println("accepted new connection");
     } catch (IOException e) {
