@@ -20,13 +20,10 @@ public class Main {
       serverSocket = new ServerSocket(4221);
       serverSocket.setReuseAddress(true);
       clientSocket = serverSocket.accept(); // Wait for connection from client.
-      clientSocket.getOutputStream().write(
-        "HTTP/1.1 200 OK\r\n\r\n".getBytes()
-      );
       InputStream input = clientSocket.getInputStream();
       BufferedReader reader = new BufferedReader(new InputStreamReader(input));
       String line = reader.readLine();
-      String[] HttpRequest = line.split("",0);
+      String[] HttpRequest = line.split(" ",0);
       OutputStream output = clientSocket.getOutputStream();
       if(HttpRequest[1].equals("/")){
           output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
