@@ -28,6 +28,7 @@ public class Main {
       String[] str = HttpRequest[1].split("/");
       //System.out.println(HttpRequest[1]);
       if(HttpRequest[1].equals("/")){
+        System.out.println("version");
         System.out.println("HTTP/1.1 200 OK\r\n\r\n");
       }
       else if((str.length > 2 && str[1].equals("echo"))){
