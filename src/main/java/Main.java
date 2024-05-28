@@ -29,8 +29,10 @@ public class Main {
       //System.out.println(HttpRequest[1]);
       if(HttpRequest[1].equals("/")){
         System.out.println("version");
-        String str1 = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/plain\r\n"  + "Content-Length: " + 0 + "\r\n\r\n"; 
-        System.out.println(str1.getBytes());
+        String response = "HTTP/1.1 200 OK\r\n" +
+        "Content-Type: text/plain\r\n" +
+        "Content-Length: 0\r\n\r\n";
+        System.out.println(response.getBytes());
       }
       else if((str.length > 2 && str[1].equals("echo"))){
         String responsebody = str[2];
