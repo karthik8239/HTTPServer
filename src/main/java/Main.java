@@ -26,8 +26,8 @@ public class Main {
       String[] HttpRequest = line.split(" ",0);
       OutputStream output = clientSocket.getOutputStream();
       String[] str = HttpRequest[1].split("/");
-      String responsebody = str[2];
-      if(HttpRequest[1].equals("/")){
+      if(str[1].equals("echo")){
+        String responsebody = str[2];
         String finalstr = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + "" + "ContentLength" + "" + responsebody.length() + ""  + "\r\n\r\n" + responsebody; 
           output.write(finalstr.getBytes());
       } else {
