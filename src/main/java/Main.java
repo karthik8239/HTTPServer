@@ -32,7 +32,7 @@ public class Main {
         String response = "HTTP/1.1 200 OK\r\n" +
         "Content-Type: text/plain\r\n" +
         "Content-Length: 0\r\n\r\n";
-        System.out.println(response.getBytes());
+        output.write(response.getBytes());
       }
       else if((str.length > 2 && str[1].equals("echo"))){
         String responsebody = str[2];
