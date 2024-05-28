@@ -28,11 +28,12 @@ public class Main {
       String[] str = HttpRequest[1].split("/");
       if(str.length > 2 && str[1].equals("echo")){
         String responsebody = str[2];
-        String finalstr = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n"  + "Content-Length: " + responsebody.length() + "\r\n\r\n" + responsebody; 
+        String finalstr = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/plain\r\n"  + "Content-Length: " + responsebody.length() + "\r\n\r\n" + responsebody; 
           output.write(finalstr.getBytes());
       } else {
         output.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes());
       }
+      output.flush();
       System.out.println("accepted new connection");
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
