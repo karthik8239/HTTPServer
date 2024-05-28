@@ -25,8 +25,11 @@ public class Main {
       String line = reader.readLine();
       String[] HttpRequest = line.split(" ",0);
       OutputStream output = clientSocket.getOutputStream();
+      String[] str = HttpRequest[1].split("/");
+      String responsebody = str[2];
       if(HttpRequest[1].equals("/")){
-          output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+        String finalstr = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n" + "" + "ContentLength" + "" + responsebody.length() + ""  + "\r\n\r\n" + responsebody; 
+          output.write(finalstr.getBytes());
       } else {
         output.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes());
       }
