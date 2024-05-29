@@ -34,7 +34,7 @@ public class Main {
         "Content-Length: 0\r\n\r\n";
         output.write(response.getBytes());
       }
-      else if(str[1].equals("useragent")){
+      else if(str[1].equals("user-agent")){
           reader.readLine();
         String useragent = reader.readLine().split("\\s+")[1];
         String reply = String.format("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: %s\r\n\r\n%s\r\n",
