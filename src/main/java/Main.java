@@ -60,8 +60,11 @@ public class Main {
           output.write(response.getBytes());//Header
           output.write(finalBytes);//response body
         }
+        else {
+          output.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes());
+        }
       }
-       else {
+      else {
         output.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes());
       }
       output.flush();
