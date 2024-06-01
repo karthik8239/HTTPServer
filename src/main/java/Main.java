@@ -44,21 +44,15 @@ public class Main {
       String line = reader.readLine();
       String[] HttpRequest = line.split(" ");
       OutputStream output = clientSocket.getOutputStream();
-      String[] str = HttpRequest[1].split("/");
+      String path = HttpRequest[1];
       
       //System.out.println(HttpRequest[1]);
-      if(HttpRequest[1].equals("/")){
-        System.out.println("version");
-        String response = "HTTP/1.1 200 OK\r\n" +
-        "Content-Type: application/octet-stream\r\n" +
-        "Content-Length: 0\r\n\r\n";
-        output.write(response.getBytes());
-      }
-      else if(str.length > 2 ){
-        String fileName = str[2];
-        Path path = Paths.get(finalDirectory,fileName);
-        if(Files.exists(path)){
-          byte[] finalBytes = Files.readAllBytes(path);
+  
+       if(path.startsWith("/files/") ){
+        String fileName = path.substring(7);
+        Path filePath = Paths.get(finalDirectory,fileName);
+        if(Files.exists(filePath)){
+          byte[] finalBytes = Files.readAllBytes(filePath);
           String response = "HTTP/1.1 200 OK\r\n" +
           "Content-Type: application/octet-stream\r\n" +
           "Content-Length: " + finalBytes.length + "\r\n\r\n";
