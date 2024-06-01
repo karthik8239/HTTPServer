@@ -14,12 +14,23 @@ public class Main {
     //Uncomment this block to pass the first stage
     
     ServerSocket serverSocket = null;
-    Socket clientSocket = null;
-    
     try {
       serverSocket = new ServerSocket(4221);
       serverSocket.setReuseAddress(true);
-      clientSocket = serverSocket.accept(); // Wait for connection from client.
+      //clientSocket = serverSocket.accept(); // Wait for connection from client.
+      while(true) {
+        Socket clientSocket = serverSocket.accept();
+        var thread = new Thread(
+          () -> handleHttpConnection(clientSocket), "HTTP connection");
+        thread.start();
+      }
+    } catch (IOException e) {
+      System.out.println("IOException: " + e.getMessage());
+    }
+  }
+  
+  private static void handleHttpConnection(Socket clientSocket) {
+     try {
       InputStream input = clientSocket.getInputStream();
       BufferedReader reader = new BufferedReader(new InputStreamReader(input));
       String line = reader.readLine();
@@ -35,7 +46,7 @@ public class Main {
         output.write(response.getBytes());
       }
       else if(str[1].equals("user-agent")){
-          reader.readLine();
+        reader.readLine();//
         String useragent = reader.readLine().split("\\s+")[1];
         String reply = String.format("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: %s\r\n\r\n%s\r\n",
         useragent.length(), useragent);
@@ -50,8 +61,9 @@ public class Main {
       }
       output.flush();
       System.out.println("accepted new connection");
-    } catch (IOException e) {
-      System.out.println("IOException: " + e.getMessage());
-    }
+     }
+     catch(IOException e){
+       System.out.println("IOException: " + e.getMessage());
+     }
   }
 }
