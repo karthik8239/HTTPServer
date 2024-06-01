@@ -50,11 +50,11 @@ public class Main {
       if(HttpRequest[1].equals("/")){
         System.out.println("version");
         String response = "HTTP/1.1 200 OK\r\n" +
-        "Content-Type: text/plain\r\n" +
+        "Content-Type: application/octet-stream\r\n" +
         "Content-Length: 0\r\n\r\n";
         output.write(response.getBytes());
       }
-      else if(str.length > 2){
+      else if(str.length > 2 ){
         String fileName = str[2];
         Path path = Paths.get(finalDirectory,fileName);
         if(Files.exists(path)){
