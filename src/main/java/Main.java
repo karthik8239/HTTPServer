@@ -52,6 +52,7 @@ public class Main {
         String fileName = path.substring(7);
         Path filePath = Paths.get(finalDirectory,fileName);
         if(Files.exists(filePath)){
+          System.out.println("code reached here");
           byte[] finalBytes = Files.readAllBytes(filePath);
           String response = "HTTP/1.1 200 OK\r\n" +
           "Content-Type: application/octet-stream\r\n" +
