@@ -71,6 +71,9 @@ public class Main {
             output.write(response.getBytes());//Header
             output.write(finalBytes);//response body
           }
+          else {
+            output.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes());
+          }
         }
         else if(path.startsWith("/user-agent")){
           String response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: " + 
