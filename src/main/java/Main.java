@@ -50,13 +50,13 @@ public class Main {
       OutputStream output = clientSocket.getOutputStream();
       String path = HttpRequest[1];
       //System.out.println(HttpRequest[1]);
-      String userAgent = "";
+      String useragent = "";
       String line1 ;
       StringBuffer sb = new StringBuffer();
       //read headers
       String header = null;
        while((header = reader.readLine()) != null && !header.isEmpty()) { 
-         String[] keyval = header.split(":" ,2);
+          useragent = header.split("\\s+")[1];
        }
        //read body
         while(reader.ready()){
@@ -99,7 +99,7 @@ public class Main {
         }
         else if(path.startsWith("/user-agent")){
           //reader.readLine();
-           String useragent = reader.readLine().split("\\s+")[1];
+          //reader.readLine();
           String response = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/plain\r\n" + "Content-Length: " + 
           useragent.length() + "\r\n\r\n" + useragent;
           output.write(response.getBytes());
