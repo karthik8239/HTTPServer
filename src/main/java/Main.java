@@ -53,7 +53,12 @@ public class Main {
       String userAgent = "";
       String line1 ;
       StringBuffer sb = new StringBuffer();
-       while(!(line1 = reader.readLine()).equals("")) {
+      //read headers
+      String header = null;
+       while((header = reader.readLine()) != null && !header.isEmpty()) { 
+         String[] keyval = header.split(":" ,2);
+       }
+       //read body
         while(reader.ready()){
           sb.append((char)reader.read());
         }
@@ -111,7 +116,6 @@ public class Main {
         }
         output.flush();
         System.out.println("accepted new connection");
-       }
      }
        catch(IOException e){
        System.out.println("IOException: " + e.getMessage());
