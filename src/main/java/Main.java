@@ -47,8 +47,12 @@ public class Main {
       String path = HttpRequest[1];
       
       //System.out.println(HttpRequest[1]);
+      String userAgent = "";
       String line1 ;
        while(!(line1 = reader.readLine()).equals("")) {
+        if (line1.startsWith("User-Agent: "))
+        userAgent = line1.substring(12);
+    }
         if(path.equals("/")){
           String response = "HTTP/1.1 200 OK\r\n" +
                         "Content-Type: text/plain\r\n" +
@@ -67,10 +71,20 @@ public class Main {
             output.write(response.getBytes());//Header
             output.write(finalBytes);//response body
           }
+          else if (path.startsWith("/echo/")) {
+            String randomString = path.substring(6);
+            String response =
+                "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: " +
+                randomString.length() + "\r\n\r\n" + randomString;
+            output.write(response.getBytes());
+          }
           else {
             System.out.println("2_code reached here");
             output.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes());
           }
+        }
+        else if(path.startsWith("/user-agent")){
+          String response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: " +
         }
         else {
           output.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes());
