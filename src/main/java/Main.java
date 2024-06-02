@@ -50,10 +50,6 @@ public class Main {
       String userAgent = "";
       String line1 ;
        while(!(line1 = reader.readLine()).equals("")) {
-        if (line1.startsWith("User-Agent: ")) {
-        userAgent = line1.substring(12);
-        System.out.println("useragent: " + userAgent);
-       }
         if(path.equals("/")){
           String response = "HTTP/1.1 200 OK\r\n" +
                         "Content-Type: text/plain\r\n" +
@@ -77,8 +73,10 @@ public class Main {
           }
         }
         else if(path.startsWith("/user-agent")){
-          String response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: " + 
-          userAgent.length() + "\r\n\r\n" + userAgent;
+          reader.readLine();
+           String useragent = reader.readLine().split("\\s+")[1];
+          String response = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/plain\r\n" + "Content-Length: " + 
+          useragent.length() + "\r\n\r\n" + useragent;
           output.write(response.getBytes());
         }
         else if (path.startsWith("/echo/")) {
