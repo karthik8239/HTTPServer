@@ -59,7 +59,7 @@ public class Main {
                         "Content-Length: 0\r\n\r\n";
                 output.write(response.getBytes());
         }
-       else if(path.startsWith("/files/") ){
+         else if(path.startsWith("/files/") ){
           String fileName = path.substring(7);
           Path filePath = Paths.get(finalDirectory,fileName);
           if(Files.exists(filePath)){
@@ -71,20 +71,16 @@ public class Main {
             output.write(response.getBytes());//Header
             output.write(finalBytes);//response body
           }
-          else if (path.startsWith("/echo/")) {
-            String randomString = path.substring(6);
-            String response =
-                "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: " +
-                randomString.length() + "\r\n\r\n" + randomString;
-            output.write(response.getBytes());
-          }
-          else {
-            System.out.println("2_code reached here");
-            output.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes());
-          }
         }
         else if(path.startsWith("/user-agent")){
           String response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: " +
+        }
+        else if (path.startsWith("/echo/")) {
+          String randomString = path.substring(6);
+          String response =
+              "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: " +
+              randomString.length() + "\r\n\r\n" + randomString;
+          output.write(response.getBytes());
         }
         else {
           output.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes());
