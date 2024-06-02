@@ -52,6 +52,7 @@ public class Main {
        while(!(line1 = reader.readLine()).equals("")) {
         if (line1.startsWith("User-Agent: ")) {
         userAgent = line1.substring(12);
+        System.out.println("useragent: " + userAgent);
        }
         if(path.equals("/")){
           String response = "HTTP/1.1 200 OK\r\n" +
