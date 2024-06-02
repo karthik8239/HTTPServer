@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,6 +10,9 @@ import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class Main {
   public static void main(String[] args) {
@@ -45,10 +49,14 @@ public class Main {
       String[] HttpRequest = line.split(" ");
       OutputStream output = clientSocket.getOutputStream();
       String path = HttpRequest[1];
-       
       //System.out.println(HttpRequest[1]);
       String userAgent = "";
       String line1 ;
+      StringBuffer sb = new StringBuffer();
+      while(reader.ready()){
+        sb.append((char)reader.read());
+      }
+      String body = sb.toString();
        while(!(line1 = reader.readLine()).equals("")) {
         if(path.equals("/")){
           String response = "HTTP/1.1 200 OK\r\n" +
@@ -56,7 +64,17 @@ public class Main {
                         "Content-Length: 0\r\n\r\n";
                 output.write(response.getBytes());
         }
-         else if(path.startsWith("/files/") ){
+        else if(path.startsWith("/files/") && Objects.equals(HttpRequest[0], "POST")) {
+          String fileName = path.substring(7);
+          File file = new File(finalDirectory + "/" + fileName);
+          if(file.createNewFile()){
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(body);
+            fileWriter.close();
+          }
+          output.write("HTTP/1.1 201 Created\r\n\r\n".getBytes());
+        }
+         else if( path.startsWith("/files/") && Objects.equals(HttpRequest[0], "GET")){
           String fileName = path.substring(7);
           Path filePath = Paths.get(finalDirectory,fileName);
           if(Files.exists(filePath)){
