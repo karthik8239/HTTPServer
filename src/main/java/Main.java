@@ -53,11 +53,11 @@ public class Main {
       String userAgent = "";
       String line1 ;
       StringBuffer sb = new StringBuffer();
-      while(reader.ready()){
-        sb.append((char)reader.read());
-      }
-      String body = sb.toString();
        while(!(line1 = reader.readLine()).equals("")) {
+        while(reader.ready()){
+          sb.append((char)reader.read());
+        }
+        String body = sb.toString();
         if(path.equals("/")){
           String response = "HTTP/1.1 200 OK\r\n" +
                         "Content-Type: text/plain\r\n" +
@@ -73,6 +73,8 @@ public class Main {
             fileWriter.close();
           }
           output.write("HTTP/1.1 201 Created\r\n\r\n".getBytes());
+          output.close();
+          return;
         }
          else if( path.startsWith("/files/") && Objects.equals(HttpRequest[0], "GET")){
           String fileName = path.substring(7);
