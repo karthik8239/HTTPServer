@@ -73,7 +73,7 @@ public class Main {
           }
         }
         else if(path.startsWith("/user-agent")){
-          reader.readLine();
+          //reader.readLine();
            String useragent = reader.readLine().split("\\s+")[1];
           String response = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/plain\r\n" + "Content-Length: " + 
           useragent.length() + "\r\n\r\n" + useragent;
