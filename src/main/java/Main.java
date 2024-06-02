@@ -49,7 +49,13 @@ public class Main {
       //System.out.println(HttpRequest[1]);
       String line1 ;
        while(!(line1 = reader.readLine()).equals("")) {
-        if(path.startsWith("/files/") ){
+        if(path.equals("/")){
+          String response = "HTTP/1.1 200 OK\r\n" +
+                        "Content-Type: text/plain\r\n" +
+                        "Content-Length: 0\r\n\r\n";
+                output.write(response.getBytes());
+        }
+       else if(path.startsWith("/files/") ){
           String fileName = path.substring(7);
           Path filePath = Paths.get(finalDirectory,fileName);
           if(Files.exists(filePath)){
