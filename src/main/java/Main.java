@@ -47,29 +47,32 @@ public class Main {
       String path = HttpRequest[1];
       
       //System.out.println(HttpRequest[1]);
-  
-       if(path.startsWith("/files/") ){
-        String fileName = path.substring(7);
-        Path filePath = Paths.get(finalDirectory,fileName);
-        if(Files.exists(filePath)){
-          System.out.println("code reached here");
-          byte[] finalBytes = Files.readAllBytes(filePath);
-          String response = "HTTP/1.1 200 OK\r\n" +
-          "Content-Type: application/octet-stream\r\n" +
-          "Content-Length: " + finalBytes.length + "\r\n\r\n";
-          output.write(response.getBytes());//Header
-          output.write(finalBytes);//response body
+      String line1 ;
+       while(!(line1 = reader.readLine()).equals("")) {
+        if(path.startsWith("/files/") ){
+          String fileName = path.substring(7);
+          Path filePath = Paths.get(finalDirectory,fileName);
+          if(Files.exists(filePath)){
+            System.out.println("code reached here");
+            byte[] finalBytes = Files.readAllBytes(filePath);
+            String response = "HTTP/1.1 200 OK\r\n" +
+            "Content-Type: application/octet-stream\r\n" +
+            "Content-Length: " + finalBytes.length + "\r\n\r\n";
+            output.write(response.getBytes());//Header
+            output.write(finalBytes);//response body
+          }
+          else {
+            System.out.println("2_code reached here");
+            output.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes());
+          }
         }
         else {
           output.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes());
         }
-      }
-      else {
-        output.write("HTTP/1.1 404 Not Found\r\n\r\n".getBytes());
-      }
-      output.flush();
-      System.out.println("accepted new connection");
-     }
+        output.flush();
+        System.out.println("accepted new connection");
+       } 
+       }
      catch(IOException e){
        System.out.println("IOException: " + e.getMessage());
      }
