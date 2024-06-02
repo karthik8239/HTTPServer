@@ -50,9 +50,9 @@ public class Main {
       String userAgent = "";
       String line1 ;
        while(!(line1 = reader.readLine()).equals("")) {
-        if (line1.startsWith("User-Agent: "))
+        if (line1.startsWith("User-Agent: ")) {
         userAgent = line1.substring(12);
-    }
+       }
         if(path.equals("/")){
           String response = "HTTP/1.1 200 OK\r\n" +
                         "Content-Type: text/plain\r\n" +
@@ -91,9 +91,9 @@ public class Main {
         }
         output.flush();
         System.out.println("accepted new connection");
-       } 
        }
-     catch(IOException e){
+     }
+       catch(IOException e){
        System.out.println("IOException: " + e.getMessage());
      }
   }
