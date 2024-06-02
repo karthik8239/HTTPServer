@@ -45,7 +45,7 @@ public class Main {
       String[] HttpRequest = line.split(" ");
       OutputStream output = clientSocket.getOutputStream();
       String path = HttpRequest[1];
-      
+       
       //System.out.println(HttpRequest[1]);
       String userAgent = "";
       String line1 ;
@@ -73,7 +73,9 @@ public class Main {
           }
         }
         else if(path.startsWith("/user-agent")){
-          String response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: " +
+          String response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: " + 
+          userAgent.length() + "\r\n\r\n" + userAgent;
+          output.write(response.getBytes());
         }
         else if (path.startsWith("/echo/")) {
           String randomString = path.substring(6);
